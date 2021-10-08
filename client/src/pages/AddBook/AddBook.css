@@ -1,0 +1,83 @@
+.table-add-book-title {
+  font-size: 24px;
+  color: #000;
+  font-weight: 600;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  margin-left: 135px;
+}
+
+.input-add-book-box {
+  position: relative;
+  width: 1000px;
+  height: 1000px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.input-add-book {
+  background-color: #d2d2d280;
+  border: 2px solid #b4b4b4;
+  font-size: 18px;
+}
+
+.input-add-book:focus {
+  background-color: #d2d2d280;
+  outline: none;
+  box-shadow: none;
+  border: 2px solid #d2d2d2;
+}
+
+.file-label-add-book {
+  max-width: 230px;
+  width: 100%;
+  height: 50px;
+  background: #d2d2d280;
+  border: 2px solid #b4b4b4;
+  font-size: 18px;
+  font-weight: 600;
+  display: block;
+  border-radius: 5px;
+  padding-top: 10px;
+  padding-left: 10px;
+  cursor: pointer;
+  color: #696969;
+}
+
+.category-box {
+  background: #d2d2d280;
+  border: 2px solid #b4b4b4;
+  height: 50px;
+  border-radius: 5px;
+  align-items: center;
+  padding-left: 5px;
+  color: #696969;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.attache-icon-add-book {
+  margin-left: 20px;
+}
+
+.btn-submit-add-book {
+  background-color: #ff0000;
+  border: none;
+  font-size: 18px;
+}
+
+.btn-submit-add-book:hover {
+  background-color: #ff0000;
+}
+
+.btn-submit-add-book:active {
+  box-shadow: none;
+  border: none;
+}
+
+.icon-add-book-submit {
+  margin-top: -3px;
+  margin-left: 3px;
+  height: 30px;
+}

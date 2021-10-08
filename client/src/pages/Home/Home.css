@@ -1,0 +1,136 @@
+.container-home {
+  display: flex;
+  height: 100vh;
+}
+
+/* Left */
+
+.container-home .left {
+  flex: 25%;
+  background-color: #f3f3f3;
+  height: 100%;
+}
+
+.container-home .left .icon {
+  width: 150px;
+  height: 130px;
+  display: block;
+  margin-top: 10px;
+  margin-right: auto;
+  margin-left: auto;
+  transform: rotate(-12deg);
+}
+
+.container-home .left .foto-profile {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border: 4px solid #000;
+  border-radius: 50%;
+  margin-top: 10px;
+  box-shadow: 0 5px 10px 2px rgba(0, 0, 0, 0.2);
+}
+
+.container-home .left .nama {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  font-style: normal;
+  color: #000;
+}
+
+.container-home .left .status-subs {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: #e90000;
+}
+
+.container-home .status-subs-subscribed {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: #29bd11;
+}
+
+.container-home .left hr {
+  width: 70%;
+  height: 2px;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.container-home .left .profile-icon,
+.subs-icon,
+.logout-icon {
+  display: block;
+  margin-left: 45px;
+  width: 100px;
+}
+
+.container-home .left .profile-icon {
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+.container-home .left .subs-icon {
+  margin-bottom: 20px;
+  width: 125px;
+}
+
+.left-side-link:focus {
+  color: #e90000;
+  background-color: #e90000;
+}
+
+.container-home .left .logout-icon {
+  margin-top: 40px;
+}
+
+/* Right */
+
+.container-home .right {
+  flex: 75%;
+  background-color: #f3f3f3;
+  height: 100%;
+}
+
+.container-home .right .banner {
+  width: 90%;
+  display: block;
+  margin: 20px auto 0 auto;
+}
+
+.container-home .right .text-list-book {
+  font-size: 30px;
+  font-weight: 600;
+  margin-top: 20px;
+  margin-left: 10px;
+  color: #000;
+}
+
+.card-book {
+  width: 90%;
+  background-color: #f3f3f3;
+  border: none;
+}
+
+.card-book .book-title {
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.card-book .book-penulis {
+  font-size: 16px;
+  font-weight: 500;
+  color: #929292;
+}
+
+.subs-modal-text-danger {
+  color: #d60000;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 20px;
+}
