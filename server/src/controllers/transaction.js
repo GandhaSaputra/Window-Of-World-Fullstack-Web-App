@@ -58,7 +58,7 @@ exports.getTransaction = async (req, res) => {
                 id,
             },
             attributes: {
-                exclude: ['createdAt', 'updatedAt', 'idUser']
+                exclude: ['createdAt', 'updatedAt']
             },
             include: [
                 {
@@ -95,22 +95,28 @@ exports.getTransaction = async (req, res) => {
 
 exports.addTransaction = async (req, res) => {
     try {
-        if(req.user.id != req.body.idUser){
-            return res.send({
-              status: "Failed",
-              message: "Error, the account number you entered is wrong"
-            })
-          }
+        // if(req.user.id != req.body.idUser){
+        //     return res.send({
+        //       status: "Failed",
+        //       message: "Error, the account number you entered is wrong"
+        //     })
+        //   }
 
-          if(req.user.id == 1){
-            return res.send({
-              status: "Failed",
-              message: "Error, Admin cannot add transaction"
-            })
-          }
+        if(req.user.id == 1){
+          return res.send({
+            status: "Failed",
+            message: "Error, Admin cannot add transaction"
+          })
+        }
+        
+        await transaction.destroy({
+          where: {
+            idUser: req.user.id,
+          },
+        });
 
         const newTransaction = await transaction.create({
-            idUser: req.body.idUser,
+            idUser: req.user.id,
             transferProof: req.file.filename,
             remainingActive: 0,
             userStatus: "Not Active",
@@ -140,25 +146,18 @@ exports.updateTransaction = async (req, res) => {
     try {
       const { id } = req.params;
 
-      if(req.user.id != 1){
-        return res.send({
-          status: "Failed",
-          message: "Only admin can update Transaction"
-        })
-      }
-
       if (req.body.paymentStatus === "Approved"){
           await transaction.update(
-              {
-                remainingActive: 30,
-                userStatus: "Active",
-                paymentStatus: req.body.paymentStatus,
+            {
+              remainingActive: 30,
+              userStatus: "Active",
+              paymentStatus: req.body.paymentStatus,
+            },
+            {
+              where: {
+              id,
               },
-              {
-                where: {
-                id,
-                },
-              }
+            },
           );
       }
 
@@ -176,7 +175,6 @@ exports.updateTransaction = async (req, res) => {
             }
         );
       }
-  
 
       const newTransaction = await transaction.findOne({
         where: {

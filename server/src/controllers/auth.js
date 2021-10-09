@@ -117,7 +117,7 @@ exports.login = async (req, res) => {
                   as: "bridge"
                 },
                 attributes: {
-                  exclude: ["createdAt", "updatedAt", "publicationDate", "author", "isbn", "bookFile", "idUser", "id"]
+                  exclude: ["createdAt", "updatedAt"]
                 }
               },
               {
@@ -178,6 +178,7 @@ exports.login = async (req, res) => {
             data: {
                 user: {
                   ...userExist,
+                  transaction: userExist.transaction,
                   token
                 }
             }
@@ -200,33 +201,33 @@ exports.checkAuth = async (req, res) => {
         where: {
           id,
         },
-        // include: [
-        //     {
-        //       model: profile,
-        //       as: "profile",
-        //       attributes: {
-        //         exclude: ["createdAt", "updatedAt", "idUser"],
-        //       }
-        //     },
-        //     {
-        //       model: books,
-        //       as: "userBookLists",
-        //       through: {
-        //         model: userBookList,
-        //         as: "bridge"
-        //       },
-        //       attributes: {
-        //         exclude: ["createdAt", "updatedAt", "publicationDate", "author", "isbn", "bookFile", "idUser", "id"]
-        //       }
-        //     },
-        //     {
-        //       model: transaction,
-        //       as: "transaction",
-        //       attributes : {
-        //         exclude: ["createdAt", "updatedAt"]
-        //       }
-        //     }
-        // ],
+        include: [
+            {
+              model: profile,
+              as: "profile",
+              attributes: {
+                exclude: ["createdAt", "updatedAt", "idUser"],
+              }
+            },
+            {
+              model: books,
+              as: "userBookLists",
+              through: {
+                model: userBookList,
+                as: "bridge"
+              },
+              attributes: {
+                exclude: ["createdAt", "updatedAt"]
+              }
+            },
+            {
+              model: transaction,
+              as: "transaction",
+              attributes : {
+                exclude: ["createdAt", "updatedAt"]
+              }
+            }
+        ],
         attributes: {
           exclude: ["createdAt", "updatedAt", "password"],
         },
@@ -238,36 +239,30 @@ exports.checkAuth = async (req, res) => {
         });
       }
 
-      const userProfile = await profile.findOne({
-        where: {
-          idUser: req.user.id
-        }
-      });
+      // dataUser = JSON.parse(JSON.stringify(dataUser));
 
-      const userTransaction = await transaction.findOne({
-        where: {
-          idUser: req.user.id
-        }
-      });
+      // const userProfile = await profile.findOne({
+      //   where: {
+      //     idUser: req.user.id
+      //   }
+      // });
 
-      const userBookLists = await userBookList.findOne({
-        where: {
-          idUser: req.user.id
-        }
-      });
+      // const userTransaction = await transaction.findOne({
+      //   where: {
+      //     idUser: req.user.id
+      //   }
+      // });
+
+      // const userBookLists = await userBookList.findOne({
+      //   where: {
+      //     idUser: req.user.id
+      //   }
+      // });
   
       res.send({
         status: "success...",
         data: {
-          user: {
-            id: dataUser.id,
-            name: dataUser.name,
-            email: dataUser.email,
-            role: dataUser.role,
-            profile: userProfile,
-            transaction: userTransaction,
-            userBookLists: userBookLists
-          },
+          user: dataUser,
         },
       });
     } catch (error) {

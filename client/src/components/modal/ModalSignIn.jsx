@@ -34,14 +34,12 @@ const ModalSignIn = (props) => {
 
     const handleOnSubmit = async (e) => {
       e.preventDefault();
-      // const email = document.getElementById('email').value;
-      // const password = document.getElementById('password').value;
 
-    const config = {
-      headers : {
-        "Content-type": "application/json",
-      }
-    };
+      const config = {
+        headers : {
+          "Content-type": "application/json",
+        }
+      };
 
       const body = JSON.stringify(form);
 
@@ -62,22 +60,6 @@ const ModalSignIn = (props) => {
           history.push("/home");
         }
       }
-      // const dataAdmin = {
-      //   email,
-      //   password,
-      // };
-
-      // dispatch({
-      //   type: 'LOGIN_SUCCESS',
-      //   payload: dataAdmin
-      // });
-
-      // if (dataAdmin.email === 'admin@gmail.com' && dataAdmin.password === 'admin') {
-      //   console.log ("Login as Admin")
-      //   history.push('/admin');
-      // } else {
-      //   alert("Not Match")
-      // }
     };
 
     return (

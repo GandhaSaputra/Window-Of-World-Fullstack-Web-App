@@ -10,7 +10,7 @@ const Left = () => {
 
     const [statusSubs, setStatusSubs] = useState();
 
-    console.log(state.user)    
+    console.log(state.user.transaction)    
 
     const handleLogout = () => {
         dispatch({
