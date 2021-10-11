@@ -32,7 +32,7 @@ exports.register = async (req, res) => {
             name: req.body.name,
             email: req.body.email,
             password: hashedPassword,
-            role: "customer",
+            role: "Customer"
         });
 
         const dataToken = {
@@ -43,17 +43,18 @@ exports.register = async (req, res) => {
 
         const newTransaction = await transaction.create({
           idUser: newUser.id,
-          transferProof: "",
+          transferProof: "-",
           remainingActive: 0,
           userStatus: "Not Active",
-          paymentStatus: ""
+          paymentStatus: "-"
         })
 
         const newProfile = await profile.create({
           idUser: newUser.id,
-          phone: "",
-          gender: "",
-          address: "",
+          phone: "-",
+          gender: "-",
+          address: "-",
+          userPhoto: ""
         })
 
         // const newUserBook
@@ -61,14 +62,12 @@ exports.register = async (req, res) => {
         res.status(200).send({
             status: 'success',
             data: {
-                user: {
-                    name: newUser.name,
-                    email: newUser.email,
-                    role: newUser.role,
-                    profile: newProfile,
-                    transaction: newTransaction,
-                    token
-                }
+              name: newUser.name,
+              email: newUser.email,
+              role: newUser.role,
+              profile: newProfile,
+              transaction: newTransaction,
+              token
             }
         });
         
@@ -202,11 +201,9 @@ exports.login = async (req, res) => {
             status: 'success',
             message: `Welcome to WOW ${userExist.name}`,
             data: {
-                user: {
-                  ...userExist,
-                  transaction: userExist.transaction,
-                  token
-                }
+              ...userExist,
+              transaction: userExist.transaction,
+              token
             }
         });
         

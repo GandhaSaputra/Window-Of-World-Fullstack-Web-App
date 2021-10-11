@@ -26,6 +26,9 @@ module.exports = {
       about: {
         type: Sequelize.TEXT
       },
+      bookCover : {
+        type: Sequelize.STRING
+      },
       bookFile: {
         type: Sequelize.STRING
       },

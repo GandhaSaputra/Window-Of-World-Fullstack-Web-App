@@ -76,7 +76,8 @@ const RightSubs = () => {
                                 maxWidth: "250px",
                                 maxHeight: "250px",
                                 objectFit: "cover",
-                                marginBottom: "10px"
+                                marginBottom: "10px",
+                                marginLeft: "160px"
                             }}
                             alt="preview"
                             />

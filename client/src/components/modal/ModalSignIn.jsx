@@ -44,6 +44,8 @@ const ModalSignIn = (props) => {
       const body = JSON.stringify(form);
 
       const response = await API.post("/login", body, config);
+
+      console.log(response.data.data)
       
       if (response?.status === 200) {
         dispatch({
@@ -51,10 +53,10 @@ const ModalSignIn = (props) => {
           payload: response.data.data,
         });
 
-        localStorage.setItem("token", response.data.data.user.token);
-        setAuthToken(response.data.data.user.token);
+        localStorage.setItem("token", response.data.data.token);
+        setAuthToken(response.data.data.token);
 
-        if (response.data.data.user.role === "admin") {
+        if (response.data.data.role === "Admin") {
           history.push("/admin");
         } else {
           history.push("/home");

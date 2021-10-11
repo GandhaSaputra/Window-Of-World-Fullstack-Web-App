@@ -218,43 +218,44 @@ exports.getUserTransactions = async (req, res) => {
   }
 }
 
-exports.addUserProfile = async (req, res) => {
-  try {
+// exports.addUserProfile = async (req, res) => {
+//   try {
 
-    if(req.user.id == 1){
-      return res.send({
-        status: "Failed",
-        message: "Admin Cannot Access This"
-      })
-    }
+//     if(req.user.id == 1){
+//       return res.send({
+//         status: "Failed",
+//         message: "Admin Cannot Access This"
+//       })
+//     }
 
-    const userProfile = await profile.create(
-      {
-        phone: req.body.phone,
-        gender: req.body.gender,
-        address: req.body.address,
-        idUser: req.user.id
-      }
-    );
+//     const userProfile = await profile.create(
+//       {
+//         phone: "-",
+//         gender: "-",
+//         address: "-",
+//         userPhoto: "-",
+//         idUser: req.user.id
+//       }
+//     );
 
-    res.send({
-      status: 'success',
-      message: 'Add profile finished',
-      data : {
-        profile: {
-          ...userProfile.dataValues
-        }
-      }
-    });
+//     res.send({
+//       status: 'success',
+//       message: 'Add profile finished',
+//       data : {
+//         profile: {
+//           ...userProfile.dataValues
+//         }
+//       }
+//     });
     
-  } catch (error) {
-    console.log(error);
-    res.send({
-      status: 'failed',
-      message: 'Server Error',
-    });
-  }
-}
+//   } catch (error) {
+//     console.log(error);
+//     res.send({
+//       status: 'failed',
+//       message: 'Server Error',
+//     });
+//   }
+// }
 
 exports.updateUserProfile = async (req, res) => {
   try {
@@ -333,6 +334,7 @@ exports.getUserBookList = async (req, res) => {
     data = data.map((item) => {
       return {
         ...item,
+        bookCover: process.env.FILE_PATH + item.books.bookCover,
         bookFile: process.env.FILE_PATH + item.books.bookFile,
       }
     });

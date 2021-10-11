@@ -30,6 +30,7 @@ exports.getBooks = async (req, res) => {
     data = data.map((item) => {
       return {
         ...item,
+        bookCover: process.env.FILE_PATH + item.bookCover,
         bookFile: process.env.FILE_PATH + item.bookFile,
       }
     });
@@ -82,6 +83,7 @@ exports.getBook = async (req, res) => {
 
         data = {
           ...data,
+          bookCover: process.env.FILE_PATH + data.bookCover,
           bookFile: process.env.FILE_PATH + data.bookFile
         }
     
@@ -111,9 +113,12 @@ exports.addBook = async (req, res) => {
       })
     }
 
+    console.log(req.files)
+
     const newBook = await books.create({
       ...data,
-      bookFile: req.file.filename,
+      bookFile: req.files.bookFile[0].filename,
+      bookCover: req.files.bookCover[0].filename,
       idUser: req.user.id
     });
 
@@ -156,7 +161,7 @@ exports.addBook = async (req, res) => {
     console.log(error);
     res.send({
       status: 'failed',
-      message: 'Server Erro',
+      message: 'Server Error',
     });
   }
 };
@@ -217,7 +222,6 @@ exports.deleteBook = async (req, res) => {
 
 exports.addCategoryBook = async (req, res) => {
   try {
-
     const { id } = req.params;
 
     // const {data} = req.body;
@@ -274,6 +278,7 @@ exports.getUserDetailBook = async (req, res) => {
 
       data = {
         ...data,
+        bookCover: process.env.FILE_PATH + data.bookCover,
         bookFile: process.env.FILE_PATH + data.bookFile
       }
   

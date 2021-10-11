@@ -62,7 +62,7 @@ const RightDetailBook = () => {
     return (
         <div className="right right-detail-book">
             <div className="container-detail-book">
-                <img src={book?.bookFile} alt="test" className="img-detail-book"/>
+                <img src={book?.bookCover} alt="test" className="img-detail-book"/>
                 <div className="text-group-detail-book">
                     <div>
                         <p className="detail-book-name">{book?.title}</p>
@@ -87,7 +87,7 @@ const RightDetailBook = () => {
                 <p className="about-book-desc">{book?.about}</p>
                 <div className="abaout-book-button-group">
                     {isBookMyList? <></> : <img src={IconAddMyList} onClick={handleAddMyList} alt="addMyList" />}
-                    <Link to="/read-book">
+                    <Link to={`/read-book/${book.id}`}>
                         <img src={IconReadBook} alt="ReadBook" />
                     </Link>
                 </div>

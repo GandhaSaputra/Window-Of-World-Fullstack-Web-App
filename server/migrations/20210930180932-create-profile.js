@@ -17,6 +17,9 @@ module.exports = {
       address: {
         type: Sequelize.TEXT
       },
+      userPhoto: {
+        type: Sequelize.STRING
+      },
       idUser: {
         type: Sequelize.INTEGER,
         references: {

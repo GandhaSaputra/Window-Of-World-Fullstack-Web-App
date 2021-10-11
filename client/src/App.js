@@ -2,7 +2,6 @@
 import {useContext, useEffect} from 'react';
 import {Switch, Route, useHistory} from 'react-router-dom';
 import { UserContext } from './config/UserContext/UserContext';
-// import { Home, LandingPage, Profile, Subscribe, NotFound, DetailBook, ReadBook, Admin, AddBook } from './pages';
 
 import LandingPage from './pages/LandingPage/LandingPage';
 import Home from './pages/Home/Home';
@@ -28,13 +27,19 @@ function App() {
   let history = useHistory();
   const [state, dispatch] = useContext(UserContext);
 
+  console.log(state)
+
   useEffect(() => {
-    if (!state.isLogin) {
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+    }
+
+    if (state.isLogin === false) {
       history.push("/");
     } else {
-      if (state.user.role === "admin") {
+      if (state.user.role === "Admin") {
         history.push("/admin");
-      } else if (state.user.role === "customer") {
+      } else if (state.user.role === "Customer") {
         history.push("/home");
       }
     }
@@ -73,7 +78,7 @@ function App() {
       <Route exact path="/profile" component={Profile}/>
       <Route exact path="/subscribe" component={Subscribe}/>
       <Route exact path="/detail-book/:id" component={DetailBook}/>
-      <Route exact path="/read-book" component={ReadBook}/>
+      <Route exact path="/read-book/:id" component={ReadBook}/>
       <Route exact path="/admin" component={Admin}/>
       <Route exact path="/add-book" component={AddBook}/>
       <Route exact path="*" component={NotFound}/>

@@ -1,7 +1,8 @@
 .right-subs {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  margin-top: 100px;
 }
 
 .subs-box {
@@ -9,6 +10,7 @@
   max-width: 500px;
   height: 100%;
   max-height: 400px;
+  /* border: 2px solid #000; */
 }
 
 .subs-box .subs-box-title {

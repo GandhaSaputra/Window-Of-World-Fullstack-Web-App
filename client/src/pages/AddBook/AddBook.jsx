@@ -17,7 +17,9 @@ const AddBook = () => {
     // const [state] = useContext(UserContext);
     const [categories, setCategories] = useState([]);
     const [categoryId, setCategoryId] = useState([]);
-    const [preview, setPreview] = useState(null);
+    const [previewBookCover, setPreviewBookCover] = useState(null);
+
+    // const [previewBookFile, setPreviewBookFile] = useState(null);
 
     const [form, setForm] = useState({
       title: "",
@@ -26,6 +28,7 @@ const AddBook = () => {
       author: "",
       isbn: "",
       about: "",
+      bookCover: "",
       bookFile: ""
     });
 
@@ -59,7 +62,7 @@ const AddBook = () => {
       });
       if (e.target.type === "file") {
         const url = URL.createObjectURL(e.target.files[0]);
-        setPreview(url);
+        setPreviewBookCover(url);
       }
     };
 
@@ -80,6 +83,7 @@ const AddBook = () => {
         formData.set("isbn", form.isbn);
         formData.set("about", form.about);
         formData.set("categoryId", form.categoryId);
+        formData.set("bookCover", form.bookCover[0], form.bookCover[0].name);
         formData.set("bookFile", form.bookFile[0], form.bookFile[0].name);
 
         console.log(form);
@@ -138,10 +142,10 @@ const AddBook = () => {
                   ))}
                 </Form.Group>
 
-                {preview && (
+                {previewBookCover && (
                   <div>
                     <img
-                      src={preview}
+                      src={previewBookCover}
                       style={{
                         maxWidth: "300px",
                         maxHeight: "300px",
@@ -153,9 +157,14 @@ const AddBook = () => {
                   </div>
                 )}
 
-                <Form.Group className="mb-3" controlId="formTransferProof">
-                    <Form.Label className="file-label-add-book" for="upload">Attache Book File <img className="attache-icon-add-book" src={AttacheGrey} alt="attache"/></Form.Label>
-                    <Form.Control type="file" placeholder="file" id="upload" name="bookFile" onChange={handleChange} hidden/>
+                <Form.Group className="mb-3" controlId="formAttacheBookCover">
+                    <Form.Label className="file-label-add-book-cover" for="uploadBookCover">Attache Book Cover <img className="attache-icon-add-book" src={AttacheGrey} alt="attache"/></Form.Label>
+                    <Form.Control type="file" placeholder="file" id="uploadBookCover" name="bookCover" onChange={handleChange} hidden/>
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formAttacheBookFile">
+                    <Form.Label className="file-label-add-book-file" for="uploadBookFile">Attache Book File <img className="attache-icon-add-book-file" src={AttacheGrey} alt="attache"/></Form.Label>
+                    <Form.Control type="file" placeholder="Book File" id="uploadBookFile" name="bookFile" onChange={handleChange}/>
                 </Form.Group>
 
                 <Button variant="danger" type="submit" className="btn-submit-add-book ms-auto">

@@ -17,7 +17,7 @@ const { register, login, checkAuth } = require('../controllers/auth');
 
 const { auth } = require('../middlewares/auth');
 
-const { uploadFile } = require('../middlewares/uploadFile');
+const { uploadFile, uploadFileBook } = require('../middlewares/uploadFile');
 
 // Route User
 router.get('/users', auth, getUsers);
@@ -30,11 +30,11 @@ router.get('/user-transactions', getUserTransactions);
 
 router.post('/add-book-to-user-list', auth, userBookList);
 
-router.post('/add-profile', auth, addUserProfile);
+// router.post('/add-profile', auth, addUserProfile);
 router.patch('/update-profile', auth, updateUserProfile);
 
 //Route Book
-router.post('/book', auth, uploadFile('bookFile'), addBook);
+router.post('/book', auth, uploadFileBook('bookFile', 'bookCover'), addBook);
 router.get('/books', auth, getBooks);
 router.get('/book/:id', auth, getBook);
 router.patch('/book/:id', auth, updateBook);

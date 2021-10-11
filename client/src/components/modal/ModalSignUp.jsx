@@ -54,10 +54,10 @@ const ModalSignUp = (props) => {
           payload: response.data.data,
         });
 
-        localStorage.setItem("token", response.data.data.user.token);
-        setAuthToken(response.data.data.user.token);
+        localStorage.setItem("token", response.data.data.token);
+        setAuthToken(response.data.data.token);
 
-        if (response.data.data.user.role === "admin") {
+        if (response.data.data.role === "admin") {
           history.push("/admin");
         } else {
           history.push("/home");

@@ -1,13 +1,12 @@
 .icon-wow-read-book {
-  width: 200px;
+  width: 100px;
   transform: rotate(-12deg);
   display: block;
-  margin: 10px auto;
+  margin: 0 auto;
+  cursor: pointer;
 }
 
 .book-content {
-  width: 100%;
-  padding-left: 40px;
-  padding-right: 40px;
-  padding-bottom: 40px;
+  width: 90%;
+  margin: 10px auto;
 }
