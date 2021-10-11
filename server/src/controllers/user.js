@@ -288,14 +288,9 @@ exports.updateUserProfile = async (req, res) => {
 
 exports.userBookList = async (req, res) => {
   try {
-    if(req.user.id == 1){
-      return res.send({
-        status: "Failed",
-        message: "Admin cannot access this"
-      })
-    }
-    await userBookList.create({
-      idUser: req.user.id,
+
+    const newList = await userBookList.create({
+      idUser: req.body.idUser,
       idBook: req.body.idBook
     })
 
@@ -303,6 +298,51 @@ exports.userBookList = async (req, res) => {
       status: "success",
       message: "Add to my list finished"
     })
+    
+  } catch (error) {
+    console.log(error);
+    res.send({
+      status: 'failed',
+      message: 'Server Error',
+    });
+  }
+}
+
+exports.getUserBookList = async (req, res) => {
+  try {
+    let data = await userBookList.findAll({
+      where: {
+        idUser: req.user.id
+      },
+      include: [
+        {
+          model: books,
+          as: "books",
+          attributes: {
+            exclude: ["createdAt", "updatedAt", "idUser"],
+          }
+        }
+      ],
+      attributes : {
+        exclude: ["createdAt", "updatedAt"]
+      }
+    });
+
+    data = JSON.parse(JSON.stringify(data));
+
+    data = data.map((item) => {
+      return {
+        ...item,
+        bookFile: process.env.FILE_PATH + item.books.bookFile,
+      }
+    });
+
+    res.send({
+      status: 'success',
+      data: {
+        userBookLists: data
+      }
+    });
     
   } catch (error) {
     console.log(error);

@@ -1,5 +1,5 @@
 // import models here
-const { books, users, category, categorybooks} = require('../../models');
+const { books, users, category, categorybooks, userBookList} = require('../../models');
 
 exports.getBooks = async (req, res) => {
   try {
@@ -215,28 +215,79 @@ exports.deleteBook = async (req, res) => {
     }
   };
 
-  exports.addCategoryBook = async (req, res) => {
-    try {
+exports.addCategoryBook = async (req, res) => {
+  try {
 
+    const { id } = req.params;
+
+    // const {data} = req.body;
+
+    await categorybooks.create({
+      idBook: id,
+      idCategory: req.body.idCategory
+    })
+ 
+    res.send({
+      status: "success",
+      message: `Add category to book with id ${id}, finished`
+    })
+    
+  } catch (error) {
+    console.log(error);
+    res.send({
+      status: 'failed',
+      message: 'Server Error',
+    });
+  }
+}
+
+exports.getUserDetailBook = async (req, res) => {
+  try {
       const { id } = req.params;
+  
+      let data = await books.findOne({
+        where: {
+          id,
+        },
+        include: [
+          {
+            model: category,
+            as: "category",
+            through: {
+              model: categorybooks,
+              as: "bridge",
+              attributes: {
+                exclude: ['createdAt', 'updatedAt', 'bridge'],
+              },
+            },
+            attributes: {
+              exclude: ['createdAt', 'updatedAt', 'bridge'],
+            },
+          }
+        ],
+        attributes: {
+          exclude: ['createdAt', 'updatedAt', 'idUser'],
+        },
+      });
 
-      // const {data} = req.body;
+      data = JSON.parse(JSON.stringify(data));
 
-      await categorybooks.create({
-        idBook: id,
-        idCategory: req.body.idCategory
-      })
+      data = {
+        ...data,
+        bookFile: process.env.FILE_PATH + data.bookFile
+      }
   
       res.send({
         status: "success",
-        message: `Add category to book with id ${id}, finished`
-      })
-      
+        data: {
+          book: data
+        }
+      });
     } catch (error) {
       console.log(error);
       res.send({
-        status: 'failed',
-        message: 'Server Error',
+        status: "failed",
+        message: "Server Error",
       });
     }
-  }
+};

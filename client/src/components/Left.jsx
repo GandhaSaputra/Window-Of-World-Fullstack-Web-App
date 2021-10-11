@@ -10,7 +10,6 @@ const Left = () => {
 
     const [statusSubs, setStatusSubs] = useState();
 
-    console.log(state.user.transaction)    
 
     const handleLogout = () => {
         dispatch({
@@ -19,7 +18,6 @@ const Left = () => {
     }
     
     useEffect(()=> {
-        console.log(state.user?.transaction?.userStatus)
         setStatusSubs(state.user?.transaction?.userStatus);
     }, [])
 

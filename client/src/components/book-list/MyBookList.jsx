@@ -14,17 +14,18 @@ export default function MyBookList({ data }) {
 
   const [state] = useContext(UserContext)
 
-  const statusSubs = state.user.statusSubs;
+  const statusSubs = state.user.transaction.userStatus;
 
   return (
     <>
       <Card className="card-book mb-3">
-        {statusSubs === 'Subscribed' ? <Link to={`/detail-book/${data.id}`}>
-          <Card.Img variant="top" src={data.image}/></Link> : <Card.Img variant="top" src={data.image} onClick={handleShowModalSubsDanger} style={{cursor: "pointer"}}/>
+        {statusSubs === 'Active' ? <Link to={`/detail-book/${data.idBook}`}>
+          <Card.Img variant="top" src={data.bookFile}/></Link> :
+          <Card.Img variant="top" src={data.bookFile} onClick={handleShowModalSubsDanger} style={{cursor: "pointer"}}/>
         }
         <Card.Body>
-          <Card.Title className="book-title">{data.name}</Card.Title>
-          <Card.Text className="book-penulis">{data.penulis}</Card.Text>
+          <Card.Title className="book-title">{data.books.title}</Card.Title>
+          <Card.Text className="book-penulis">{data.books.author}</Card.Text>
         </Card.Body>
       </Card>
 

@@ -129,7 +129,7 @@ exports.login = async (req, res) => {
               }
           ],
             attributes: {
-                exclude: ['createdAt', 'updatedAt',],
+                exclude: ['createdAt', 'updatedAt'],
             },
         });
 
@@ -150,6 +150,19 @@ exports.login = async (req, res) => {
 
         userExist = JSON.parse(JSON.stringify(userExist));
 
+        // const bookCover = process.env.FILE_PATH + userExist.user.userBookLists[0].bookFile
+
+        // userExist = {
+        //   ...userExist,
+        //   user: {
+        //     userBookLists: [
+        //       {
+        //         bookFile: process.env.FILE_PATH + userExist.user.userBookLists[0].bookFile,
+        //       }
+        //     ],
+        //   },
+        // };
+
         // const userProfile = await profile.findOne({
         //   where: {
         //     idUser: userExist.id
@@ -162,10 +175,23 @@ exports.login = async (req, res) => {
         //   }
         // });
 
-        // const userBookLists = await userBookList.findOne({
+        // let userBookLists = await userBookList.findOne({
         //   where: {
         //     idUser: userExist.id
-        //   }
+        //   },
+        //   include: [
+        //     {
+        //       model: books,
+        //       as: "userBookLists",
+        //       through: {
+        //         model: userBookList,
+        //         as: "bridge"
+        //       },
+        //       attributes: {
+        //         exclude: ["createdAt", "updatedAt"]
+        //       }
+        //     },
+        //   ]
         // });
 
         // const userEmail = userExist.email;

@@ -1,15 +1,18 @@
-import React, {useEffect, useState} from 'react'
-import { Link, useParams } from 'react-router-dom';
+import React, {useContext, useEffect, useState} from 'react'
+import { Link, useParams, useHistory } from 'react-router-dom';
 import {IconReadBook, IconAddMyList} from '../assets/assets';
 
 import { API } from '../config/api/api'
+import { UserContext } from '../config/UserContext/UserContext';
 
 const RightDetailBook = () => {
+
+    let history = useHistory();
     let { id } = useParams();
 
-    console.log(id)
-
+    const [state] = useContext(UserContext)
     const [book, setBook] = useState({});
+    // const [isBookMyList, setIsBookMyList] = useState(false);
 
     const getBook = async () => {
         try {
@@ -20,15 +23,41 @@ const RightDetailBook = () => {
         }
     };
 
-    console.log(book)
+    const handleAddMyList = async () => {
+        try {
+            const config = {
+                headers: {
+                    "Content-type": "application/json"
+                }
+            }
+            const data = {
+                idUser: state.user.id,
+                idBook: id
+            }
+            const body = JSON.stringify(data);
+            await API.post("/add-book-to-user-list", body, config);
+            history.push('/profile');
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
+    const userBookLists = state.user.userBookLists
+
+    console.log()
+
+    let isBookMyList = false
+  
+    
     useEffect(() => {
         getBook();
     }, [])
-    
-    // const data = [...bookData];
 
-    // const {name, penulis, image, publicationDate, pages, isbn, aboutBook} = data[id];
+    userBookLists.forEach((e) => {
+        if(e.id === book.id){
+            isBookMyList = true;
+        }
+    })
 
     return (
         <div className="right right-detail-book">
@@ -57,9 +86,7 @@ const RightDetailBook = () => {
                 <p className="about-book-title">About This Book </p>
                 <p className="about-book-desc">{book?.about}</p>
                 <div className="abaout-book-button-group">
-                    <Link to="/profile">
-                        <img src={IconAddMyList} alt="addMyList" />
-                    </Link>
+                    {isBookMyList? <></> : <img src={IconAddMyList} onClick={handleAddMyList} alt="addMyList" />}
                     <Link to="/read-book">
                         <img src={IconReadBook} alt="ReadBook" />
                     </Link>

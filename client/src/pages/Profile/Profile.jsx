@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import { Redirect } from 'react-router';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { UserContext } from '../../config/UserContext/UserContext';
@@ -9,8 +9,12 @@ import MyList from '../../components/list/MyList';
 import Left from '../../components/Left';
 
 import { EmailIcon, FotoProfileBesar, GenderIcon, MapsIcon, PhoneIcon } from '../../assets/assets';
+import ModalEditProfile from '../../components/modal/ModalEditProfile';
 
 const Profile = () => {
+    const [showModalProfile, setShowModalProfile] = useState(false);
+    const handleCloseModalProfile = () => setShowModalProfile(false);
+    const handleShowModalProfile = () => setShowModalProfile(true);
 
     const [state] = useContext(UserContext)
 
@@ -53,13 +57,14 @@ const Profile = () => {
                         </Col>
                         <Col sm={4} className="item-dua">
                             <img className="foto-profil-besar" src={FotoProfileBesar} alt="foto-profil-besar" />
-                            <Button className="btn-edit-profile">Edit Profile</Button>
+                            <Button className="btn-edit-profile" onClick={handleShowModalProfile}>Edit Profile</Button>
                         </Col>
                     </Row>
                 </Container>
                 <p className="title-my-list-book">My List Book</p>
                 <MyList/>
             </div>
+            <ModalEditProfile show={showModalProfile} onHide={handleCloseModalProfile} centered/>
         </div>
     )
 }
