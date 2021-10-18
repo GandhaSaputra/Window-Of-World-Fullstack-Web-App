@@ -8,7 +8,7 @@ import './Profile.css'
 import MyList from '../../components/list/MyList';
 import Left from '../../components/Left';
 
-import { EmailIcon, FotoProfileBesar, GenderIcon, MapsIcon, PhoneIcon } from '../../assets/assets';
+import { EmailIcon, FotoProfileBesar, GenderIcon, MapsIcon, PhoneIcon, DummyAvatar } from '../../assets/assets';
 import ModalEditProfile from '../../components/modal/ModalEditProfile';
 
 const Profile = () => {
@@ -56,7 +56,7 @@ const Profile = () => {
                             </div>
                         </Col>
                         <Col sm={4} className="item-dua">
-                            <img className="foto-profil-besar" src={FotoProfileBesar} alt="foto-profil-besar" />
+                            <img className="foto-profil-besar" src={DummyAvatar} alt="foto-profil-besar" />
                             <Button className="btn-edit-profile" onClick={handleShowModalProfile}>Edit Profile</Button>
                         </Col>
                     </Row>

@@ -260,14 +260,14 @@ exports.getUserTransactions = async (req, res) => {
 exports.updateUserProfile = async (req, res) => {
   try {
 
-    if(req.user.id == 1){
-      return res.send({
-        status: "Failed",
-        message: "Admin Cannot Access This"
-      })
-    }
-
-    await profile.update(req.body, {
+    await profile.update(
+      {
+        gender: req.body.gender,
+        phone: req.body.phone,
+        address: req.body.address,
+        userPhoto: req.file.filename,
+      },
+      {
       where: {
         idUser: req.user.id
       }
@@ -334,8 +334,11 @@ exports.getUserBookList = async (req, res) => {
     data = data.map((item) => {
       return {
         ...item,
-        bookCover: process.env.FILE_PATH + item.books.bookCover,
-        bookFile: process.env.FILE_PATH + item.books.bookFile,
+        books: {
+          ...item.books,
+          bookCover: process.env.FILE_PATH + item.books.bookCover,
+          bookFile: process.env.FILE_PATH + item.books.bookFile,
+        }
       }
     });
 

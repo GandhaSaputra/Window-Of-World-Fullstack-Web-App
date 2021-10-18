@@ -3,7 +3,7 @@ import React, { useContext } from 'react'
 
 
 import {Navbar, Container, Nav, NavDropdown} from 'react-bootstrap'
-import { BsBookmarkPlus, BsBoxArrowRight, BsPeopleCircle, BsPlusSquare } from 'react-icons/bs';
+import { BsBookmarkPlus, BsBoxArrowRight, BsPeopleCircle, BsPlusSquare, BsChatDots } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { Icon } from '../../assets/assets';
 import { UserContext } from '../../config/UserContext/UserContext';
@@ -31,13 +31,19 @@ const NavbarAdmin = () => {
                     <Nav className="ms-auto">
                         <NavDropdown title={dropDownIcon} className="admin-acc-icon" id="basic-nav-dropdown">
                             <NavDropdown.Item className="drop-down-item">
-                                <Link to="/add-book" className="link-add-book">
+                                <Link to="/add-book" className="link-dropdown">
                                     <BsBookmarkPlus className="icon-dropdown-admin"/> <span className="add-book-text">Add Book</span>
                                 </Link>
                             </NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item className="drop-down-item">
                                 <BsPlusSquare style={{height:"20px"}} className="icon-dropdown-admin" /> Add Category
+                            </NavDropdown.Item>
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item className="drop-down-item">
+                                <Link to="/admin-chat" className="link-dropdown">
+                                    <BsChatDots style={{height:"20px"}} className="icon-dropdown-admin" /> Chat
+                                </Link>
                             </NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item className="drop-down-item" onClick={handleLogout}>

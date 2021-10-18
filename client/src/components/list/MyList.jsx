@@ -16,12 +16,13 @@ export default function MyList() {
 
   const getUserBookLists = async () => {
     try {
-        const response = await API.get('/getUserBookList');
+        const response = await API.get('/get-user-book-list');
         setUserBookLists(response.data.data.userBookLists);
     } catch (error) {
         console.log(error)
     }
   };
+  console.log(userBookLists)
 
   useEffect(() => {
     getUserBookLists();

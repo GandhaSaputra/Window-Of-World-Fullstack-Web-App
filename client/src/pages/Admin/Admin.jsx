@@ -26,22 +26,18 @@ const Admin = () => {
 
     const handleApproved = async (id) => {
         try {
-
             const config = {
                 headers: {
                     "Content-type": "application/json"
                 }
             }
-
             const data = {
                 paymentStatus: "Approved",
                 id
             }
-
             const body = JSON.stringify(data);
-
             await API.patch("/transaction/" + id, body, config);
-
+            getTransactions();
         } catch (error) {
             console.log(error)
         }
@@ -49,22 +45,18 @@ const Admin = () => {
 
     const handleCancel = async (id) => {
         try {
-
             const config = {
                 headers: {
                     "Content-type": "application/json"
                 }
             }
-
             const data = {
                 paymentStatus: "Cancel",
                 id
             }
-
             const body = JSON.stringify(data);
-
             await API.patch("/transaction/" + id, body, config);
-
+            getTransactions();
         } catch (error) {
             console.log(error)
         }
@@ -73,7 +65,6 @@ const Admin = () => {
     useEffect(() => {
         getTransactions();
       }, []);
-    // const [state] = useContext(UserContext)
 
     // if(!state.isLogin){
     //     return <Redirect to="/" />
@@ -99,121 +90,30 @@ const Admin = () => {
                     {transactions.map((item, index) => (
                         <tr key={index}>
                             <td className="table-cell align-middle">{index + 1}</td>
-                            <td className="table-cell align-middle">{item.user.name}</td>
-                            <td className="table-cell align-middle">{item.transferProof}</td>
-                            <td className="table-cell align-middle">{item.remainingActive} / Hari</td>
-
-                            {console.log(item)}
+                            <td className="table-cell align-middle">{item?.user?.name}</td>
+                            <td className="table-cell align-middle"> <img src={item?.transferProof} alt="view" style={{width:"50px"}}/> </td>
+                            <td className="table-cell align-middle">{item?.remainingActive} / Hari</td>
                             
-                            {item.userStatus === "Active" ? <td className="table-cell align-middle" style={{color:"#0acf83"}}>{item.userStatus}</td> : <td className="table-cell align-middle" style={{color:"#ff0000"}}>{item.userStatus}</td>}
+                            {item?.userStatus === "Active" ? <td className="table-cell align-middle" style={{color:"#0acf83"}}>{item?.userStatus}</td> : <td className="table-cell align-middle" style={{color:"#ff0000"}}>{item?.userStatus}</td>}
 
-                            {item.paymentStatus === "Approved" ? 
-                            <td className="table-cell align-middle" style={{color:"#0acf83"}}>{item.paymentStatus}</td> 
-                            : item.paymentStatus === "Pending" ? 
-                            <td className="table-cell align-middle" style={{color:"#F7941E"}}>{item.paymentStatus}</td> 
-                            : <td className="table-cell align-middle" style={{color:"#ff0000"}}>{item.paymentStatus}</td>}
+                            {item?.paymentStatus === "Approved" ? 
+                            <td className="table-cell align-middle" style={{color:"#0acf83"}}>{item?.paymentStatus}</td> 
+                            : item?.paymentStatus === "Pending" ? 
+                            <td className="table-cell align-middle" style={{color:"#F7941E"}}>{item?.paymentStatus}</td> 
+                            : <td className="table-cell align-middle" style={{color:"#ff0000"}}>{item?.paymentStatus}</td>}
                             
                             <td className="table-cell align-middle">
                                 <Dropdown className="drop-down">
                                     <Dropdown.Toggle className="dropdown-toggle" variant="link" id="dropdown-basic">
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu>
-                                        <Dropdown.Item className="approved-text" onClick={() => handleApproved(item.id)}>Approved</Dropdown.Item>
-                                        <Dropdown.Item className="text-c" onClick={() => handleCancel(item.id)}>Cancel</Dropdown.Item>
+                                        <Dropdown.Item className="approved-text" onClick={() => handleApproved(item?.id)}>Approved</Dropdown.Item>
+                                        <Dropdown.Item className="text-c" onClick={() => handleCancel(item?.id)}>Cancel</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
                             </td>
                         </tr>
                     ))}
-                    {/* <tr>
-                        <td className="table-cell align-middle">2</td>
-                        <td className="table-cell align-middle">Tria Aulia Sari</td>
-                        <td className="table-cell align-middle">bni.jpg</td>
-                        <td className="table-cell align-middle">26 / Hari</td>
-                        <td className="table-cell align-middle" style={{color:"#0acf83"}}>Active</td>
-                        <td className="table-cell align-middle" style={{color:"#0acf83"}}>Approve</td>
-                        <td className="table-cell align-middle">
-                            <Dropdown>
-                                <Dropdown.Toggle className="dropdown-toggle" variant="link" id="dropdown-basic">
-                                </Dropdown.Toggle>
-                                <Dropdown.Menu>
-                                    <Dropdown.Item href="#" className="approved-text">Approved</Dropdown.Item>
-                                    <Dropdown.Item href="#" className="text-c">Cancel</Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className="table-cell align-middle">3</td>
-                        <td className="table-cell align-middle">Angel Natasha</td>
-                        <td className="table-cell align-middle">bri.jpg</td>
-                        <td className="table-cell align-middle">0 Hari</td>
-                        <td className="table-cell align-middle" style={{color:"#ff0000"}}>Not Active</td>
-                        <td className="table-cell align-middle" style={{color:"#ff0000"}}>Cancel</td>
-                        <td className="table-cell align-middle">
-                            <Dropdown>
-                                <Dropdown.Toggle className="dropdown-toggle" variant="link" id="dropdown-basic">
-                                </Dropdown.Toggle>
-                                <Dropdown.Menu>
-                                    <Dropdown.Item href="#" className="approved-text">Approved</Dropdown.Item>
-                                    <Dropdown.Item href="#" className="text-c">Cancel</Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className="table-cell align-middle">4</td>
-                        <td className="table-cell align-middle">Joe Kevin</td>
-                        <td className="table-cell align-middle">bsi.jpg</td>
-                        <td className="table-cell align-middle">0 Hari</td>
-                        <td className="table-cell align-middle" style={{color:"#ff0000"}}>Not Active</td>
-                        <td className="table-cell align-middle" style={{color:"#F7941E"}}>Pending</td>
-                        <td className="table-cell align-middle">
-                            <Dropdown>
-                                <Dropdown.Toggle className="dropdown-toggle" variant="link" id="dropdown-basic">
-                                </Dropdown.Toggle>
-                                <Dropdown.Menu>
-                                    <Dropdown.Item href="#" className="approved-text">Approved</Dropdown.Item>
-                                    <Dropdown.Item href="#" className="text-c">Cancel</Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className="table-cell align-middle">5</td>
-                        <td className="table-cell align-middle">Talita</td>
-                        <td className="table-cell align-middle">bkb.jpg</td>
-                        <td className="table-cell align-middle">0 Hari</td>
-                        <td className="table-cell align-middle" style={{color:"#ff0000"}}>Not Active</td>
-                        <td className="table-cell align-middle" style={{color:"#F7941E"}}>Pending</td>
-                        <td className="table-cell align-middle">
-                            <Dropdown>
-                                <Dropdown.Toggle className="dropdown-toggle" variant="link" id="dropdown-basic"></Dropdown.Toggle>
-                                <Dropdown.Menu>
-                                    <Dropdown.Item href="#" className="approved-text">Approved</Dropdown.Item>
-                                    <Dropdown.Item href="#" className="text-c">Cancel</Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className="table-cell align-middle">6</td>
-                        <td className="table-cell align-middle">Rizky Febian</td>
-                        <td className="table-cell align-middle">bkp.jpg</td>
-                        <td className="table-cell align-middle">0 Hari</td>
-                        <td className="table-cell align-middle" style={{color:"#ff0000"}}>Not Active</td>
-                        <td className="table-cell align-middle" style={{color:"#F7941E"}}>Pending</td>
-                        <td className="table-cell align-middle">
-                            <Dropdown>
-                                <Dropdown.Toggle className="dropdown-toggle" variant="link" id="dropdown-basic">
-                                </Dropdown.Toggle>
-                                <Dropdown.Menu>
-                                    <Dropdown.Item href="#" className="approved-text">Approved</Dropdown.Item>
-                                    <Dropdown.Item href="#" className="text-c">Cancel</Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown>
-                        </td>
-                    </tr> */}
                 </tbody>
             </Table>
         </div>

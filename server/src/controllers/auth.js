@@ -54,7 +54,7 @@ exports.register = async (req, res) => {
           phone: "-",
           gender: "-",
           address: "-",
-          userPhoto: ""
+          userPhoto: "dummy.jpg"
         })
 
         // const newUserBook
@@ -105,6 +105,7 @@ exports.login = async (req, res) => {
                 model: profile,
                 as: "profile",
                 attributes: {
+                  // userPhoto: process.env.FILE_PATH + userPhoto,
                   exclude: ["createdAt", "updatedAt", "idUser"],
                 }
               },
@@ -151,51 +152,13 @@ exports.login = async (req, res) => {
 
         // const bookCover = process.env.FILE_PATH + userExist.user.userBookLists[0].bookFile
 
-        // userExist = {
-        //   ...userExist,
-        //   user: {
-        //     userBookLists: [
-        //       {
-        //         bookFile: process.env.FILE_PATH + userExist.user.userBookLists[0].bookFile,
-        //       }
-        //     ],
-        //   },
-        // };
-
-        // const userProfile = await profile.findOne({
-        //   where: {
-        //     idUser: userExist.id
-        //   }
-        // });
-
-        // const userTransaction = await transaction.findOne({
-        //   where: {
-        //     idUser: userExist.id
-        //   }
-        // });
-
-        // let userBookLists = await userBookList.findOne({
-        //   where: {
-        //     idUser: userExist.id
-        //   },
-        //   include: [
-        //     {
-        //       model: books,
-        //       as: "userBookLists",
-        //       through: {
-        //         model: userBookList,
-        //         as: "bridge"
-        //       },
-        //       attributes: {
-        //         exclude: ["createdAt", "updatedAt"]
-        //       }
-        //     },
-        //   ]
-        // });
-
-        // const userEmail = userExist.email;
-        // const userName = userExist.name;
-        // const userRole = userExist.role;
+        userExist = {
+          ...userExist,
+            profile: {
+                ...userExist.profile,
+                userPhoto: process.env.FILE_PATH + userExist.profile.userPhoto,
+              },
+        };
 
         res.send({
             status: 'success',
@@ -220,7 +183,7 @@ exports.checkAuth = async (req, res) => {
     try {
       const id = req.user.id;
   
-      const dataUser = await users.findOne({
+      let dataUser = await users.findOne({
         where: {
           id,
         },
@@ -262,25 +225,15 @@ exports.checkAuth = async (req, res) => {
         });
       }
 
-      // dataUser = JSON.parse(JSON.stringify(dataUser));
+      dataUser = JSON.parse(JSON.stringify(dataUser));
 
-      // const userProfile = await profile.findOne({
-      //   where: {
-      //     idUser: req.user.id
-      //   }
-      // });
-
-      // const userTransaction = await transaction.findOne({
-      //   where: {
-      //     idUser: req.user.id
-      //   }
-      // });
-
-      // const userBookLists = await userBookList.findOne({
-      //   where: {
-      //     idUser: req.user.id
-      //   }
-      // });
+      dataUser = {
+        ...dataUser,
+          profile: {
+              ...dataUser.profile,
+              userPhoto: process.env.FILE_PATH + dataUser.profile.userPhoto,
+            },
+      };
   
       res.send({
         status: "success...",

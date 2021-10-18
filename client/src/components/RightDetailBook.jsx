@@ -10,9 +10,9 @@ const RightDetailBook = () => {
     let history = useHistory();
     let { id } = useParams();
 
-    const [state] = useContext(UserContext)
+    const [state, dispatch] = useContext(UserContext)
     const [book, setBook] = useState({});
-    // const [isBookMyList, setIsBookMyList] = useState(false);
+    const [userBookList, setuserBookList] = useState([])
 
     const getBook = async () => {
         try {
@@ -22,6 +22,15 @@ const RightDetailBook = () => {
             console.log(error)
         }
     };
+
+    const getUserBookList = async () => {
+        try {
+            const response = await API.get('/get-user-book-list')
+            setuserBookList(response.data.data.userBookLists);
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const handleAddMyList = async () => {
         try {
@@ -36,28 +45,28 @@ const RightDetailBook = () => {
             }
             const body = JSON.stringify(data);
             await API.post("/add-book-to-user-list", body, config);
+            getUserBookList();
             history.push('/profile');
         } catch (error) {
             console.log(error)
         }
     }
 
-    const userBookLists = state.user.userBookLists
+    let isBookMyList = false;
 
-    console.log()
-
-    let isBookMyList = false
-  
-    
-    useEffect(() => {
-        getBook();
-    }, [])
-
-    userBookLists.forEach((e) => {
-        if(e.id === book.id){
+    userBookList.forEach((e) => {
+        console.log(e.books.id)
+        if(e.books.id === book.id){
             isBookMyList = true;
         }
     })
+
+    useEffect(() => {
+        getBook();
+        getUserBookList();
+    }, [])
+
+    
 
     return (
         <div className="right right-detail-book">
@@ -86,7 +95,7 @@ const RightDetailBook = () => {
                 <p className="about-book-title">About This Book </p>
                 <p className="about-book-desc">{book?.about}</p>
                 <div className="abaout-book-button-group">
-                    {isBookMyList? <></> : <img src={IconAddMyList} onClick={handleAddMyList} alt="addMyList" />}
+                    {isBookMyList === true ? <></> : <img src={IconAddMyList} onClick={handleAddMyList} alt="addMyList" />}
                     <Link to={`/read-book/${book.id}`}>
                         <img src={IconReadBook} alt="ReadBook" />
                     </Link>

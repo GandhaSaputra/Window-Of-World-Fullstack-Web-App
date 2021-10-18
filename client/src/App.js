@@ -12,12 +12,14 @@ import NotFound from './pages/NotFound/NotFound';
 import DetailBook from './pages/DetailBook/DetailBook';
 import ReadBook from './pages/ReadBook/ReadBook';
 import AddBook from './pages/AddBook/AddBook';
+import CustomerChat from './pages/CustomerChat/CustomerChat';
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import './App.css';
 
 
 import {API, setAuthToken}  from './config/api/api';
+import AdminChat from './pages/AdminChat/AdminChat';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -81,6 +83,8 @@ function App() {
       <Route exact path="/read-book/:id" component={ReadBook}/>
       <Route exact path="/admin" component={Admin}/>
       <Route exact path="/add-book" component={AddBook}/>
+      <Route exact path="/admin-chat" component={AdminChat}/>
+      <Route exact path="/chat" component={CustomerChat}/>
       <Route exact path="*" component={NotFound}/>
     </Switch>
   );

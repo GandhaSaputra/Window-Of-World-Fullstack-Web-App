@@ -31,7 +31,7 @@ router.get('/user-transactions', getUserTransactions);
 router.post('/add-book-to-user-list', auth, userBookList);
 
 // router.post('/add-profile', auth, addUserProfile);
-router.patch('/update-profile', auth, updateUserProfile);
+router.patch('/update-profile', auth, uploadFile('userPhoto'), updateUserProfile);
 
 //Route Book
 router.post('/book', auth, uploadFileBook('bookFile', 'bookCover'), addBook);
@@ -40,7 +40,7 @@ router.get('/book/:id', auth, getBook);
 router.patch('/book/:id', auth, updateBook);
 router.delete('/book/:id', auth, deleteBook);
 router.post('/add-category-to-book/:id', addCategoryBook);
-router.get('/getUserBookList', auth, getUserBookList);
+router.get('/get-user-book-list', auth, getUserBookList);
 router.get('/get-user-detail-book', auth, getUserDetailBook)
 
 //Route Transaction

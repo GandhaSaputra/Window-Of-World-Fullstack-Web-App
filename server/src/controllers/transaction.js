@@ -95,12 +95,6 @@ exports.getTransaction = async (req, res) => {
 
 exports.addTransaction = async (req, res) => {
     try {
-        // if(req.user.id != req.body.idUser){
-        //     return res.send({
-        //       status: "Failed",
-        //       message: "Error, the account number you entered is wrong"
-        //     })
-        //   }
 
         if(req.user.id == 1){
           return res.send({
