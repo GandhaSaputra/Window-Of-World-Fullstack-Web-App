@@ -48,8 +48,7 @@ const RightSubs = () => {
 
         const response = await API.post('/transaction', formData, config);
         console.log(response);
-
-        // history.push("/admin");
+        handleShowModalSubs();
     }
 
     // console.log(user)
@@ -60,10 +59,10 @@ const RightSubs = () => {
                 <p className="subs-box-title">Premium</p>
                 <p className="subs-box-desc">Pay now and access all the latest books from <img src={smallWow} alt="wow"/></p> 
                 <p className="subs-box-number"><img src={smallWow} alt="wow"/> : 0981312323</p>
-                <Form.Group className="mb-3" controlId="formAccountNumber">
-                    <Form.Control className="input-subs" id="accNumb" type="text" placeholder="Input Your Account Number" />
-                </Form.Group>
                 <Form onSubmit={handleOnSubmit}>
+                    <Form.Group className="mb-3" controlId="formAccountNumber">
+                        <Form.Control className="input-subs" id="accNumb" type="text" placeholder="Input Your Account Number" />
+                    </Form.Group>
                     <Form.Group className="mb-3" controlId="formTransferProof">
                         <Form.Label className="file-label" for="file">Attache proof of transfer <img className="attache-icon" src={attache} alt="attache"/></Form.Label>
                         <Form.Control type="file" id="file" name="transferProof" onChange={handleChange} hidden/>
@@ -83,7 +82,7 @@ const RightSubs = () => {
                             />
                         </div>
                     )}
-                    <Button type="submit" variant="danger" className="btn-submit-send" onClick={handleShowModalSubs}>
+                    <Button type="submit" variant="danger" className="btn-submit-send">
                         Send
                     </Button>
                 </Form>

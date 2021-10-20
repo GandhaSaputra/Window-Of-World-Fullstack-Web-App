@@ -99,9 +99,7 @@ const socketIo = (io) => {
       socket.on('load messages', async (payload) => {
         try {
           const token = socket.handshake.auth.token
-          console.log(token)
-          const tokenKey = process.env.TOKEN_KEY
-          console.log(tokenKey)
+          const tokenKey = process.env.SECRET_KEY
           const verified = jwt.verify(token, tokenKey)
 
           const idRecipient = payload
@@ -148,7 +146,7 @@ const socketIo = (io) => {
         try {
           const token = socket.handshake.auth.token
         
-          const tokenKey = process.env.TOKEN_KEY
+          const tokenKey = process.env.SECRET_KEY
           const verified = jwt.verify(token, tokenKey)
           
           const idSender = verified.id

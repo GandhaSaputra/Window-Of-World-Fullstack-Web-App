@@ -13,9 +13,6 @@
   max-width: 320px;
 }
 
-.kotak {
-}
-
 .container-home .left .icon {
   width: 150px;
   height: 130px;
@@ -72,20 +69,48 @@
 
 .container-home .left .profile-icon,
 .subs-icon,
-.logout-icon {
+.logout-icon,
+.chat-icon {
   display: block;
   margin-left: 45px;
   width: 100px;
 }
 
+.chat {
+  margin-right: 10px;
+  font-size: 28px !important;
+  margin-bottom: 10px;
+}
+
+.chat-icon {
+  width: 200px;
+}
+
 .container-home .left .profile-icon {
-  margin-top: 20px;
-  margin-bottom: 50px;
+  margin-top: 10px;
+  margin-bottom: 35px;
 }
 
 .container-home .left .subs-icon {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   width: 125px;
+}
+
+.left-side-link-chat {
+  text-decoration: none;
+  color: #929292;
+}
+
+.left-side-link-chat:hover {
+  color: #929292;
+}
+
+.left-side-link-chat:focus {
+  color: #e90000;
+}
+
+.left-side-link-chat:active {
+  color: #e90000;
 }
 
 .left-side-link:focus {
@@ -93,8 +118,12 @@
   background-color: #e90000;
 }
 
+.chat-icon {
+  font-size: 20px;
+}
+
 .container-home .left .logout-icon {
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 /* Right */

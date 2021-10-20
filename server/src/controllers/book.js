@@ -12,11 +12,11 @@ exports.getBooks = async (req, res) => {
             model: categorybooks,
             as: "bridge",
             attributes: {
-              exclude: ['createdAt', 'updatedAt', 'bridge'],
+              exclude: ['createdAt', 'updatedAt'],
             },
           },
           attributes: {
-            exclude: ['createdAt', 'updatedAt', 'bridge'],
+            exclude: ['createdAt', 'updatedAt'],
           },
         }
       ],
@@ -105,15 +105,6 @@ exports.getBook = async (req, res) => {
 exports.addBook = async (req, res) => {
   try {
     const {category: categoryName, ...data} = req.body;
-
-    if(req.user.id != 1){
-      return res.send({
-        status: "Failed",
-        message: "Only admin can add book"
-      })
-    }
-
-    console.log(req.files)
 
     const newBook = await books.create({
       ...data,
@@ -223,8 +214,6 @@ exports.deleteBook = async (req, res) => {
 exports.addCategoryBook = async (req, res) => {
   try {
     const { id } = req.params;
-
-    // const {data} = req.body;
 
     await categorybooks.create({
       idBook: id,

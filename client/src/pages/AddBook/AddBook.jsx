@@ -12,14 +12,11 @@ import { AttacheGrey } from '../../assets/assets'
 
 const AddBook = () => {
 
-  let history = useHistory();
+    let history = useHistory();
 
-    // const [state] = useContext(UserContext);
     const [categories, setCategories] = useState([]);
     const [categoryId, setCategoryId] = useState([]);
     const [previewBookCover, setPreviewBookCover] = useState(null);
-
-    // const [previewBookFile, setPreviewBookFile] = useState(null);
 
     const [form, setForm] = useState({
       title: "",
@@ -60,6 +57,13 @@ const AddBook = () => {
         ...form,
         [e.target.name]: e.target.type === "file" ? e.target.files : e.target.value,
       });
+    };
+
+    const handleChangeFile = (e) => {
+      setForm({
+        ...form,
+        [e.target.name]: e.target.type === "file" ? e.target.files : e.target.value,
+      });
       if (e.target.files[0].type === "image/jpeg") {
         const url = URL.createObjectURL(e.target.files[0]);
         setPreviewBookCover(url);
@@ -68,8 +72,7 @@ const AddBook = () => {
         const url = URL.createObjectURL(e.target.files[0]);
         setPreviewBookCover(url);
       }
-    };
-
+    }
 
     const handleSubmit = async (e) => {
       try {
@@ -91,12 +94,10 @@ const AddBook = () => {
         formData.set("bookCover", form.bookCover[0], form.bookCover[0].name);
         formData.set("bookFile", form.bookFile[0], form.bookFile[0].name);
 
-        console.log(form);
+        await API.post('/book', formData, config);
+        // console.log(response);
 
-        const response = await API.post('/book', formData, config);
-        console.log(response);
-
-        history.push("/admin");
+        history.push("/list-book-admin");
 
       } catch (error) {
         console.log(error)
@@ -149,12 +150,12 @@ const AddBook = () => {
 
                 <Form.Group className="mb-3" controlId="formAttacheBookFile">
                     <Form.Label className="file-label-add-book-file" for="uploadBookFile">Attache Book File <img className="attache-icon-add-book-file" src={AttacheGrey} alt="attache"/></Form.Label>
-                    <Form.Control type="file" placeholder="Book File" id="uploadBookFile" name="bookFile" onChange={handleChange}/>
+                    <Form.Control type="file" placeholder="Book File" id="uploadBookFile" name="bookFile" onChange={handleChangeFile}/>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formAttacheBookCover">
                     <Form.Label className="file-label-add-book-cover" for="uploadBookCover">Attache Book Cover <img className="attache-icon-add-book" src={AttacheGrey} alt="attache"/></Form.Label>
-                    <Form.Control type="file" placeholder="file" id="uploadBookCover" name="bookCover" onChange={handleChange} hidden/>
+                    <Form.Control type="file" placeholder="file" id="uploadBookCover" name="bookCover" onChange={handleChangeFile} hidden/>
                 </Form.Group>
 
                 {previewBookCover && (

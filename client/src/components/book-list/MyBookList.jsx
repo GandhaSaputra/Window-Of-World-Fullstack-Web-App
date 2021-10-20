@@ -19,10 +19,7 @@ export default function MyBookList({ data }) {
   return (
     <>
       <Card className="card-book mb-3">
-        {statusSubs === 'Active' ? <Link to={`/detail-book/${data.idBook}`}>
-          <Card.Img variant="top" src={data.books.bookCover}/></Link> :
-          <Card.Img variant="top" src={data.books.bookCover} onClick={handleShowModalSubsDanger} style={{cursor: "pointer"}}/>
-        }
+        {statusSubs === 'Active' ? <Link to={`/detail-book/${data.idBook}`}><Card.Img variant="top" src={data.books.bookCover}/></Link> :<Card.Img variant="top" src={data.books.bookCover} onClick={handleShowModalSubsDanger} style={{cursor: "pointer"}}/>}
         <Card.Body>
           <Card.Title className="book-title">{data.books.title}</Card.Title>
           <Card.Text className="book-penulis">{data.books.author}</Card.Text>

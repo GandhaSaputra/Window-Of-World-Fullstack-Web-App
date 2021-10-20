@@ -70,3 +70,27 @@
 .text-c {
   color: #ff0000;
 }
+
+.btn-group-book-admin {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+.btn-edit-book {
+  background-color: rgb(240, 218, 24);
+  width: 60px;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  height: 35px;
+}
+
+.btn-delete-book {
+  background-color: #ff0000;
+  width: 60px;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+}

@@ -24,8 +24,6 @@ const CustomerChat = () => {
             }
         })
         socket.on("new message", () => {
-            console.log("contact", contact)
-            console.log("triggered", contact?.id)
             socket.emit("load messages", contact?.id)
         })
 
@@ -48,13 +46,11 @@ const CustomerChat = () => {
                 ...data, 
                 message: messages.length > 0 ? messages[messages.length -1].message : "Click here to start message"
             }
-            // console.log(dataContact)
             setContacts([dataContact])
         })
     }
 
     const onClickContact = (data) => {
-        console.log(data)
         setContact(data)
         socket.emit("load messages", data.id)
     }
@@ -66,7 +62,6 @@ const CustomerChat = () => {
                     idSender: item.sender.id,
                     message: item.message
                 }))
-                console.log(dataMessages)
                 setMessages(dataMessages)
             }
             const chatMessagesElm = document.getElementById("chat-messages")
@@ -80,14 +75,10 @@ const CustomerChat = () => {
                 idRecipient: contact.id,
                 message: e.target.value
             }
-            console.log(data)
             socket.emit("send message", data)
             e.target.value = ""
         }
     }
-
-    console.log(contact)
-    console.log(contacts)
 
     return (
         <div className="container-home">

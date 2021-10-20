@@ -257,9 +257,40 @@ exports.getUserTransactions = async (req, res) => {
 //   }
 // }
 
+exports.getUserProfile = async (req, res) => {
+  try {
+    let dataProfile = await profile.findOne({
+      where: {
+        idUser: req.user.id
+      },
+      attributes: {
+        exclude: ['createdAt', 'updatedAt']
+      }
+    })
+
+    dataProfile = JSON.parse(JSON.stringify(dataProfile));
+
+    dataProfile = {
+      ...dataProfile,
+      userPhoto: process.env.FILE_PATH + dataProfile.userPhoto
+    }
+
+    res.send({
+      status: "success",
+      data : dataProfile
+    })
+    
+  } catch (error) {
+    console.log(error);
+    res.send({
+      status: 'failed',
+      message: 'Server Error',
+    });
+  }
+}
+
 exports.updateUserProfile = async (req, res) => {
   try {
-
     await profile.update(
       {
         gender: req.body.gender,

@@ -22,5 +22,6 @@ import IconAddMyList from './icon/AddMyList.svg';
 import BookContent from './image/BookContent.png'
 import AttacheGrey from './icon/attache-grey.svg'
 import DummyAvatar from './image/dummy-avatar.jpg'
+import Bill from './icon/bill.svg'
 
-export {Vector, Icon, FotoProfile, ProfileIcon, SubscribeIcon, LogoutIcon, Banner, bookSerangkai, bookSiswa, bookKabarRahasia, bookTessOnTheRoad, smallWow, attache, MapsIcon, GenderIcon, EmailIcon, PhoneIcon, FotoProfileBesar, DetailBookBesar, IconReadBook, IconAddMyList, BookContent, AttacheGrey, DummyAvatar};
+export {Vector, Icon, FotoProfile, ProfileIcon, SubscribeIcon, LogoutIcon, Banner, bookSerangkai, bookSiswa, bookKabarRahasia, bookTessOnTheRoad, smallWow, attache, MapsIcon, GenderIcon, EmailIcon, PhoneIcon, FotoProfileBesar, DetailBookBesar, IconReadBook, IconAddMyList, BookContent, AttacheGrey, DummyAvatar, Bill};

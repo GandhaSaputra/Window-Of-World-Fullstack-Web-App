@@ -22,7 +22,6 @@ export default function MyList() {
         console.log(error)
     }
   };
-  console.log(userBookLists)
 
   useEffect(() => {
     getUserBookLists();

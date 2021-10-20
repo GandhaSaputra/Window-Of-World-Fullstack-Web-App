@@ -96,7 +96,7 @@ const AdminChat = () => {
             <NavbarAdmin/>
             <Container fluid style={{height: '83.7vh'}}>
                 <Row>
-                    <Col md={3} style={{height: '83.7vh'}} className="px-3 border-end border-dark overflow-auto">
+                    <Col md={3} style={{height: '89vh'}} className="px-3 border-end border-dark overflow-auto">
                         <Contact dataContact={contacts} clickContact={onClickContact} contact={contact} sendMessage={onSendMessage}/>
                     </Col>
                     <Col md={9} style={{maxHeight: '100vh'}} className="px-0">

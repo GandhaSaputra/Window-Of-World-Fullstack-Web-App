@@ -22,7 +22,7 @@ const Chat = ({ contact, user, messages, sendMessage }) => {
                         </div>
                     ))}
                 </div>
-                <div style={{ height: '6vh' }}className="px-3">
+                <div style={{ height: '6vh' }} className="px-3">
                     <input 
                     placeholder="Send Message" 
                     className="input-message px-4" 

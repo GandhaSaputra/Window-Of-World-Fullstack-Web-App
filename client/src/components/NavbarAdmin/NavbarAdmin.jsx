@@ -4,6 +4,7 @@ import React, { useContext } from 'react'
 
 import {Navbar, Container, Nav, NavDropdown} from 'react-bootstrap'
 import { BsBookmarkPlus, BsBoxArrowRight, BsPeopleCircle, BsPlusSquare, BsChatDots } from 'react-icons/bs';
+import {BiBookOpen} from 'react-icons/bi'
 import { Link } from 'react-router-dom';
 import { Icon } from '../../assets/assets';
 import { UserContext } from '../../config/UserContext/UserContext';
@@ -37,7 +38,9 @@ const NavbarAdmin = () => {
                             </NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item className="drop-down-item">
-                                <BsPlusSquare style={{height:"20px"}} className="icon-dropdown-admin" /> Add Category
+                                <Link to="/list-book-admin" className="link-dropdown">
+                                    <BiBookOpen style={{height:"20px"}} className="icon-dropdown-admin" /> List Book
+                                </Link>
                             </NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item className="drop-down-item">

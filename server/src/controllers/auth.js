@@ -105,7 +105,6 @@ exports.login = async (req, res) => {
                 model: profile,
                 as: "profile",
                 attributes: {
-                  // userPhoto: process.env.FILE_PATH + userPhoto,
                   exclude: ["createdAt", "updatedAt", "idUser"],
                 }
               },

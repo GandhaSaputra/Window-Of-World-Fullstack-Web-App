@@ -5,7 +5,7 @@ const router = express.Router();
 
 // Controller
 // import controller function here
-const { getUsers, getUser, updateUser, deleteUser, getUserBooks, getUserTransactions, userBookList, addUserProfile, updateUserProfile, getUserBookList } = require('../controllers/user');
+const { getUsers, getUser, updateUser, deleteUser, getUserBooks, getUserTransactions, userBookList, addUserProfile, updateUserProfile, getUserBookList, getUserProfile } = require('../controllers/user');
 
 const { addBook, getBooks, getBook, updateBook, deleteBook, addCategoryBook, getUserDetailBook } = require('../controllers/book');
 
@@ -41,7 +41,8 @@ router.patch('/book/:id', auth, updateBook);
 router.delete('/book/:id', auth, deleteBook);
 router.post('/add-category-to-book/:id', addCategoryBook);
 router.get('/get-user-book-list', auth, getUserBookList);
-router.get('/get-user-detail-book', auth, getUserDetailBook)
+router.get('/get-user-detail-book', auth, getUserDetailBook);
+router.get('/get-user-profile', auth, getUserProfile);
 
 //Route Transaction
 router.get('/transactions', auth, getTransactions);

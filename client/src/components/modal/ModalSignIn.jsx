@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react'
 
-import {Modal, Form, Button} from 'react-bootstrap'
+import {Modal, Form, Button, Alert} from 'react-bootstrap'
 import { useHistory } from 'react-router';
 import { UserContext } from '../../config/UserContext/UserContext';
 
@@ -13,9 +13,9 @@ const ModalSignIn = (props) => {
       props.onHide();
     }
 
+    const [message, setMessage] = useState(null);
     const [state, dispatch] = useContext(UserContext);
     let history = useHistory();
-
 
     const [form, setForm] = useState({
       email: "",
@@ -33,34 +33,41 @@ const ModalSignIn = (props) => {
 
 
     const handleOnSubmit = async (e) => {
-      e.preventDefault();
+      try {
+        e.preventDefault();
 
-      const config = {
-        headers : {
-          "Content-type": "application/json",
+        const config = {
+          headers : {
+            "Content-type": "application/json",
+          }
+        };
+
+        const body = JSON.stringify(form);
+
+        const response = await API.post("/login", body, config);
+
+        console.log(response.data.data)
+        
+        if (response?.status === 200) {
+          dispatch({
+            type: 'LOGIN_SUCCESS',
+            payload: response.data.data,
+          });
+
+          localStorage.setItem("token", response.data.data.token);
+          setAuthToken(response.data.data.token);
+
+          history.push(
+            response.data.data.role === "Admin" ? "/admin" : "/home"
+          );
         }
-      };
-
-      const body = JSON.stringify(form);
-
-      const response = await API.post("/login", body, config);
-
-      console.log(response.data.data)
-      
-      if (response?.status === 200) {
-        dispatch({
-          type: 'LOGIN_SUCCESS',
-          payload: response.data.data,
-        });
-
-        localStorage.setItem("token", response.data.data.token);
-        setAuthToken(response.data.data.token);
-
-        if (response.data.data.role === "Admin") {
-          history.push("/admin");
-        } else {
-          history.push("/home");
-        }
+      } catch (error) {
+        const alert = (
+          <Alert variant="danger" className="py-1">
+            Email and Password not match
+          </Alert>
+        );
+        setMessage(alert);
       }
     };
 
@@ -68,6 +75,7 @@ const ModalSignIn = (props) => {
         <Modal show={props.show} onHide={props.onHide} className="modal-signin" centered>
           <Modal.Title>Sign In</Modal.Title>
           <Modal.Body>
+            {message && message}
             <Form onSubmit={handleOnSubmit}>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Control className="input-signin" id="email" value={email} name="email" onChange={handleChange} type="email" placeholder="Email"/>
