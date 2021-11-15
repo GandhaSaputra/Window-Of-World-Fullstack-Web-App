@@ -1,1 +1,1 @@
-# Bagian Front End dari keseluruhan project window of world Gandha Saputra
+# Front End / Client Side of the whole web app window of world
