@@ -1,21 +1,26 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, Card, Button } from 'react-bootstrap'
+import { useHistory } from 'react-router';
 import NavbarAdmin from '../../components/NavbarAdmin/NavbarAdmin';
 import { API } from '../../config/api/api';
 
 
 const ListBookAdmin = () => {
-
+    const history = useHistory();
     const [books, setBooks] = useState([]);
 
     const getBooks = async () => {
         try {
-        const response = await API.get('/books');
-        setBooks(response.data.data.books)
+            const response = await API.get('/books');
+            setBooks(response.data.data.books)
         } catch (error) {
-        console.log(error)
+            console.log(error)
         }
     };
+
+    const handleEdit = (id) => {
+        history.push(`/edit-book/${id}`)
+    }
 
     const handleDelete = async (id) => {
         try {
@@ -37,23 +42,23 @@ const ListBookAdmin = () => {
 
     return (
         <div>
-            <NavbarAdmin/>
+            <NavbarAdmin />
             <Container className="my-5">
                 <Row>
                     {books.map((data, index) => (
-                    <Col md={2} key={index}>
-                        <Card className="card-book mb-3">
-                            <Card.Img variant="top" src={data.bookCover}/>
-                            {/* <Card.Body>
+                        <Col md={2} key={index}>
+                            <Card className="card-book mb-3">
+                                <Card.Img variant="top" src={data.bookCover} />
+                                {/* <Card.Body>
                                 <Card.Title className="book-title">{data.title}</Card.Title>
                                 <Card.Text className="book-penulis">{data.author}</Card.Text>
                             </Card.Body> */}
-                            <div className="btn-group-book-admin">
-                                <button className="btn-edit-book">Edit</button>
-                                <button className="btn-delete-book" onClick={() => handleDelete(data?.id)}>Delete</button>
-                            </div>
-                        </Card>
-                    </Col>
+                                <div className="btn-group-book-admin">
+                                    <button className="btn-edit-book" onClick={() => handleEdit(data?.id)}>Edit</button>
+                                    <button className="btn-delete-book" onClick={() => handleDelete(data?.id)}>Delete</button>
+                                </div>
+                            </Card>
+                        </Col>
                     ))}
                 </Row>
             </Container>

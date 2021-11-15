@@ -97,10 +97,16 @@ body {
   max-width: 350px !important;
   height: 50px !important;
   background: #bcbcbc40 !important;
-  border: 2px solid #bcbcbc !important;
+  border: 2px solid #cfcfcf !important;
   font-size: 18px !important;
   font-weight: 500 !important;
   margin: 10px auto !important;
+}
+
+.input-signup:focus,
+.input-signin:focus,
+.input-subs:focus {
+  box-shadow: none;
 }
 
 .btn-submit-signup {
@@ -117,6 +123,8 @@ body {
 }
 
 .text-have-account {
-  margin-top: 10px;
+  margin-top: 20px;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
   text-align: center;
 }

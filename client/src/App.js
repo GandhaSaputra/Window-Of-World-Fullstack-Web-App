@@ -21,6 +21,7 @@ import './App.css';
 import {API, setAuthToken}  from './config/api/api';
 import AdminChat from './pages/AdminChat/AdminChat';
 import ListBookAdmin from './pages/ListBookAdmin/ListBookAdmin';
+import UpdateBook from './pages/EditBook/UpdateBook';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -84,6 +85,7 @@ function App() {
       <Route exact path="/read-book/:id" component={ReadBook}/>
       <Route exact path="/admin" component={Admin}/>
       <Route exact path="/add-book" component={AddBook}/>
+      <Route exact path="/edit-book/:id" component={UpdateBook}/>
       <Route exact path="/admin-chat" component={AdminChat}/>
       <Route exact path="/chat" component={CustomerChat}/>
       <Route exact path="/list-book-admin" component={ListBookAdmin}/>

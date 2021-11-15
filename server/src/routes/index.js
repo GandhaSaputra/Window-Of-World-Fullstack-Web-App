@@ -31,13 +31,14 @@ router.get('/user-transactions', getUserTransactions);
 router.post('/add-book-to-user-list', auth, userBookList);
 
 // router.post('/add-profile', auth, addUserProfile);
+router.patch('/update-profile-without-photo', auth, updateUserProfile);
 router.patch('/update-profile', auth, uploadFile('userPhoto'), updateUserProfile);
 
 //Route Book
 router.post('/book', auth, uploadFileBook('bookFile', 'bookCover'), addBook);
 router.get('/books', auth, getBooks);
 router.get('/book/:id', auth, getBook);
-router.patch('/book/:id', auth, updateBook);
+router.patch('/book/:id', auth, uploadFileBook('bookFile', 'bookCover'), updateBook);
 router.delete('/book/:id', auth, deleteBook);
 router.post('/add-category-to-book/:id', addCategoryBook);
 router.get('/get-user-book-list', auth, getUserBookList);

@@ -40,9 +40,10 @@
   margin-top: 20px;
   text-align: center;
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 600;
   font-style: normal;
   color: #000;
+  font-family: "Poppins", "Sans-serif";
 }
 
 .container-home .left .status-subs {
@@ -50,6 +51,7 @@
   font-size: 18px;
   font-weight: 600;
   color: #e90000;
+  font-family: "Poppins", "Sans-serif";
 }
 
 .container-home .status-subs-subscribed {
@@ -57,6 +59,7 @@
   font-size: 18px;
   font-weight: 600;
   color: #29bd11;
+  font-family: "Poppins", "Sans-serif";
 }
 
 .container-home .left hr {
@@ -170,4 +173,12 @@
   font-size: 18px;
   text-align: center;
   margin-top: 20px;
+}
+
+.input-search {
+  font-family: "Poppins", sans-serif;
+}
+
+.input-search:focus {
+  box-shadow: none !important;
 }

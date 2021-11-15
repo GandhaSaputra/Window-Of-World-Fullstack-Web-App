@@ -1,6 +1,8 @@
 // import models here
 const { books, users, category, categorybooks, userBookList} = require('../../models');
 
+const fs = require("fs")
+
 exports.getBooks = async (req, res) => {
   try {
     let data = await books.findAll({
@@ -84,7 +86,8 @@ exports.getBook = async (req, res) => {
         data = {
           ...data,
           bookCover: process.env.FILE_PATH + data.bookCover,
-          bookFile: process.env.FILE_PATH + data.bookFile
+          bookFile: process.env.FILE_PATH + data.bookFile,
+          bookFileName: data.bookFile,
         }
     
         res.send({
@@ -161,23 +164,97 @@ exports.updateBook = async (req, res) => {
     try {
       const { id } = req.params;
 
-      if(req.user.id != 1){
-        return res.send({
-          status: "Failed",
-          message: "Only admin can update book"
+      const dataBody = req.body;
+
+      if (Object.keys(req.files).length === 0) {
+        await books.update(
+          {
+            ...dataBody
+          },
+          {
+            where: {
+              id
+            }
+          }
+        )
+      } else if (req.files.bookFile !== undefined && req.files.bookCover === undefined) {
+        const book = await books.findOne({
+          where: {
+            id,
+          }
         })
+        fs.unlinkSync("uploads/" + book.bookFile)
+        await books.update(
+          {
+            ...dataBody,
+            bookFile: req.files.bookFile[0].filename
+          },
+          {
+            where: {
+              id,
+            }
+          }
+        )
+      } else if (req.files.bookFile === undefined && req.files.bookCover !== undefined) {
+        const book = await books.findOne({
+          where: {
+            id,
+          }
+        })
+        fs.unlinkSync("uploads/" + book.bookCover)
+        await books.update(
+          {
+            ...dataBody,
+            bookCover: req.files.bookCover[0].filename
+          },
+          {
+            where: {
+              id,
+            }
+          }
+        )
+      } else {
+        const book = await books.findOne({
+          where: {
+            id,
+          }
+        })
+        fs.unlinkSync("uploads/" + book.bookFile)
+        fs.unlinkSync("uploads/" + book.bookCover)
+        await books.update(
+          {
+            ...dataBody,
+            bookFile: req.files.bookFile[0].filename,
+            bookCover: req.files.bookCover[0].filename
+          },
+          {
+            where: {
+              id,
+            }
+          }
+        )
       }
   
-      await books.update(req.body, {
+      let data = await books.findOne({
         where: {
           id,
         },
-      });
+        attributes: {
+          exclude: ["createdAt", "updatedAt"],
+        }
+      })
+
+      data = JSON.parse(JSON.stringify(data))
+      data = {
+        ...data,
+        bookCover: process.env.FILE_PATH + data.bookCover,
+        bookFile: process.env.FILE_PATH + data.bookFile,
+      }
   
       res.send({
         status: "success",
         message: `Update book id: ${id} finished`,
-        data: req.body,
+        data
       });
     } catch (error) {
       console.log(error);
@@ -191,7 +268,15 @@ exports.updateBook = async (req, res) => {
 exports.deleteBook = async (req, res) => {
     try {
       const { id } = req.params;
-  
+      
+      const book = await books.findOne({
+        where: {
+          id,
+        }
+      })
+
+      fs.unlinkSync("uploads/" + book.bookFile)
+      fs.unlinkSync("uploads/" + book.bookCover)
       await books.destroy({
         where: {
           id,

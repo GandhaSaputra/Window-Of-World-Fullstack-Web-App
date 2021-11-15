@@ -1,5 +1,5 @@
 const { users, transaction } = require('../../models')
-
+const cron = require("node-cron")
 
 exports.getTransactions = async (req, res) => {
     try {
@@ -141,6 +141,14 @@ exports.updateTransaction = async (req, res) => {
       const { id } = req.params;
 
       if (req.body.paymentStatus === "Approved"){
+        //inisiate remaining active variable
+        let remainingActiveUser = 29;
+
+        // get time now
+        const hours = new Date().getHours();
+        const minutes = new Date().getMinutes();
+        const seconds = new Date().getSeconds();
+          //first update
           await transaction.update(
             {
               remainingActive: 30,
@@ -149,10 +157,55 @@ exports.updateTransaction = async (req, res) => {
             },
             {
               where: {
-              id,
+                id,
               },
             },
           );
+          
+          //Update remaining active
+          const task = cron.schedule(`${seconds} ${minutes} ${hours} * * *`, async () => {
+            //get data transaction
+            let getTransaction = await transaction.findOne({
+              where: {
+                id,
+              }
+            })
+            getTransaction = JSON.parse(JSON.stringify(getTransaction))
+            
+            // the task will be stopped and completely delete if remainingActive < 0
+            if (remainingActiveUser === -1) {
+              //update user status
+              await transaction.update(
+                {
+                  ...getTransaction,
+                  paymentStatus: "Cancel",
+                  userStatus: "Not Active",
+                },
+                {
+                  where: {
+                    id
+                  }
+                }
+              )
+              task.destroy();
+            } else {
+              // Update Transaction if remaining active > 0
+              await transaction.update(
+                {
+                  ...getTransaction,
+                  remainingActive: remainingActiveUser
+                },
+                {
+                  where: {
+                    id
+                  }
+                }
+              )
+              // Substrac remaining active
+              remainingActive = remainingActive - 1;
+            }
+
+          })
       }
 
       if (req.body.paymentStatus === "Cancel"){

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { UserContext } from '../../config/UserContext/UserContext';
@@ -31,17 +31,17 @@ const Profile = () => {
 
     const avatar = profile.userPhoto
 
-    useEffect(()=> {
+    useEffect(() => {
         getProfile();
     }, []);
 
-    if(!state.isLogin){
+    if (!state.isLogin) {
         return <Redirect to="/" />
     }
 
     return (
         <div className="container-home">
-            <Left getProfile={getProfile} data={profile}/>
+            <Left getProfile={getProfile} data={profile} />
             <div className="right">
                 <p className="profile-title">Profile</p>
                 <Container className="profile-box">
@@ -49,7 +49,7 @@ const Profile = () => {
                         <Col sm={8} className="item-satu">
                             <div className="icon-group-profile">
                                 <img src={EmailIcon} alt="email" />
-                                <img src={GenderIcon} alt="gender"/>
+                                <img src={GenderIcon} alt="gender" />
                                 <img src={PhoneIcon} alt="phone" />
                                 <img src={MapsIcon} alt="maps" />
                             </div>
@@ -73,15 +73,15 @@ const Profile = () => {
                             </div>
                         </Col>
                         <Col sm={4} className="item-dua">
-                            {avatar === "http://localhost:5000/uploads/dummy.jpg" ? <img src={DummyAvatar} alt="foto-profile-dummy" className="foto-profil-besar"/> : <img src={profile.userPhoto} alt="foto-profile-user" className="foto-profil-besar"/>}
+                            {avatar === "http://localhost:5000/uploads/dummy.jpg" ? <img src={DummyAvatar} alt="foto-profile-dummy" className="foto-profil-besar" /> : <img src={profile.userPhoto} alt="foto-profile-user" className="foto-profil-besar" />}
                             <Button className="btn-edit-profile" onClick={handleShowModalProfile}>Edit Profile</Button>
                         </Col>
                     </Row>
                 </Container>
                 <p className="title-my-list-book">My List Book</p>
-                <MyList/>
+                <MyList />
             </div>
-            <ModalEditProfile show={showModalProfile} onHide={handleCloseModalProfile} getProfile={getProfile} centered/>
+            <ModalEditProfile show={showModalProfile} onHide={handleCloseModalProfile} getProfile={getProfile} centered />
         </div>
     )
 }

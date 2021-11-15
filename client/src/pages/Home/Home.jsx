@@ -11,14 +11,14 @@ const Home = () => {
 
     const [state] = useContext(UserContext)
 
-    if(!state.isLogin){
+    if (!state.isLogin) {
         return <Redirect to="/" />
     }
 
     return (
         <div className="container-home">
-            <Left/>
-            <RightHome/>
+            <Left />
+            <RightHome />
         </div>
     )
 }

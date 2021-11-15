@@ -34,6 +34,10 @@
   margin-right: auto;
 }
 
+.space {
+  height: 50px;
+}
+
 .btn-light:active {
   background-color: transparent;
 }

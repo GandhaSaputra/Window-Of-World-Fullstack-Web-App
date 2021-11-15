@@ -272,6 +272,7 @@ exports.getUserProfile = async (req, res) => {
 
     dataProfile = {
       ...dataProfile,
+      imageUserAsli: dataProfile.userPhoto,
       userPhoto: process.env.FILE_PATH + dataProfile.userPhoto
     }
 
@@ -291,18 +292,33 @@ exports.getUserProfile = async (req, res) => {
 
 exports.updateUserProfile = async (req, res) => {
   try {
-    await profile.update(
-      {
-        gender: req.body.gender,
-        phone: req.body.phone,
-        address: req.body.address,
-        userPhoto: req.file.filename,
-      },
-      {
-      where: {
-        idUser: req.user.id
-      }
-    });
+    if (req.file == undefined) {
+      await profile.update(
+        {
+          gender: req.body.gender,
+          phone: req.body.phone,
+          address: req.body.address
+        },
+        {
+          where: {
+            idUser: req.user.id
+          }
+        }
+      )
+    } else {
+      await profile.update(
+        {
+          gender: req.body.gender,
+          phone: req.body.phone,
+          address: req.body.address,
+          userPhoto: req.file.filename,
+        },
+        {
+        where: {
+          idUser: req.user.id
+        }
+      });
+    }
 
     res.send({
       status: 'success',

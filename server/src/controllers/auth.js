@@ -28,6 +28,19 @@ exports.register = async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
+        const userExist = await users.findOne({
+          where: {
+            email: req.body.email,
+          },
+        });
+
+        if (userExist) {
+          return res.status(400).send({
+            status: "failed",
+            message: "email already used",
+          });
+        }
+
         const newUser = await users.create({
             name: req.body.name,
             email: req.body.email,
@@ -132,11 +145,25 @@ exports.login = async (req, res) => {
             },
         });
 
+        if(!userExist) {
+          return res.status(400).send({
+            stasus: 'failed login',
+            message: 'Email and Password not match',
+          });
+        }
+
+        // if (req.body.email != userExist.email){
+        //   return res.status(400).send({
+        //     stasus: 'failed login',
+        //     message: 'Email Not Exist',
+        //   });
+        // }
+
         const isValid = await bcrypt.compare(req.body.password, userExist.password)
 
         if (!isValid) {
             return res.status(400).send({
-                stasus: 'failed',
+                stasus: 'failed login',
                 message: 'Email and Password not match',
             });
         }
@@ -247,4 +274,4 @@ exports.checkAuth = async (req, res) => {
         message: "Server Error",
       });
     }
-  };
+};

@@ -25,6 +25,7 @@
   font-size: 18px;
   font-weight: 500;
   color: #000;
+  font-family: "Poppins", "Sans-serif";
 }
 
 .subs-box .subs-box-number {
@@ -32,6 +33,11 @@
   color: #000;
   font-size: 18px;
   font-weight: 700;
+  font-family: "Poppins", "Sans-serif";
+}
+
+.input-subs {
+  font-family: "Poppins", "Sans-serif";
 }
 
 .subs-box .file-label {
@@ -49,6 +55,7 @@
   padding-top: 10px;
   padding-left: 10px;
   cursor: pointer;
+  font-family: "Poppins", "Sans-serif";
 }
 
 .attache-icon {
@@ -64,9 +71,10 @@
   font-weight: 700;
   font-size: 17px;
   height: 50px;
-  letter-spacing: 0.5px;
+  letter-spacing: 2px;
   display: block;
   margin: 40px auto 0 auto;
+  font-family: "Poppins", "Sans-serif";
 }
 
 .btn-submit-send:hover {
@@ -86,4 +94,5 @@
   font-size: 18px;
   color: #29bd11;
   margin-top: 10px;
+  font-family: "Poppins", "Sans-serif";
 }
