@@ -98,3 +98,8 @@
   border: none;
   border-radius: 5px;
 }
+
+.image-transaction-wrapper {
+  max-width: 150px;
+  height: auto;
+}
