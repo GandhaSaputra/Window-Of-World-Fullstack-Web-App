@@ -55,7 +55,7 @@ exports.getTransaction = async (req, res) => {
 
         let data = await transaction.findOne({
             where:{
-                id,
+                idUser: id,
             },
             attributes: {
                 exclude: ['createdAt', 'updatedAt']
